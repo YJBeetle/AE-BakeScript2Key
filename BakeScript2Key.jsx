@@ -4,7 +4,7 @@
             var selectedLayer = thisComp.selectedLayers[i];
             var copyedLayer = selectedLayer.duplicate();
             copyedLayer.name = selectedLayer.name + "-baked"
-            mapProperty(selectedLayer, copyedLayer, 0);
+            mapProperty(selectedLayer, copyedLayer, 0, selectedLayer, copyedLayer);
             selectedLayer.enabled = false;
         };
     } else {
@@ -12,7 +12,7 @@
     };
 }
 
-function mapProperty(property, propertyCopy, deepth) {
+function mapProperty(property, propertyCopy, deepth, selectedLayer, copyedLayer) {
     if (property.numProperties && propertyCopy.numProperties && property.numProperties === propertyCopy.numProperties) {
         for (var i = 1, il = property.numProperties; i <= il; i++) {
             var childProperty = property.property(i);
@@ -25,7 +25,7 @@ function mapProperty(property, propertyCopy, deepth) {
                 }
             }
 
-            mapProperty(childProperty, childPropertyCopy, deepth + 1);
+            mapProperty(childProperty, childPropertyCopy, deepth + 1, selectedLayer, copyedLayer);
         };
     }
 }
